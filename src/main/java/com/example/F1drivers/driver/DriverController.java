@@ -14,8 +14,8 @@ public class DriverController {
     @GetMapping
     public List<Driver> getAllDrivers(){
         List<Driver> drivers = Arrays.asList(
-                new Driver(1L, "Max Verstappen", "Netherlands", Team.RED_BULL_RACING),
-                new Driver(2L, "Lewis Hamilton", "United Kingdom", Team.MERCEDES_AMG_F1)
+                new Driver(1L, "Max Verstappen", "NED", Team.RED_BULL_RACING),
+                new Driver(2L, "Lewis Hamilton", "GBR", Team.MERCEDES_AMG_F1)
         );
         return drivers;
     }
