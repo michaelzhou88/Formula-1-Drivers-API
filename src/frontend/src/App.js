@@ -11,7 +11,7 @@ import {
     Badge,
     Tag,
     Avatar,
-    Radio, Popconfirm, Image
+//    Radio, Popconfirm, Image
 } from 'antd';
 
 import {
@@ -147,12 +147,12 @@ const renderDrivers = () => {
                   <Menu.Item key="2" icon={<DesktopOutlined />}>
                       Option 2
                   </Menu.Item>
-                  <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-                      <Menu.Item key="3">Tom</Menu.Item>
-                      <Menu.Item key="4">Bill</Menu.Item>
-                      <Menu.Item key="5">Alex</Menu.Item>
+                  <SubMenu key="sub1" icon={<UserOutlined />} title="Drivers">
+                      <Menu.Item key="3">2021</Menu.Item>
+                      <Menu.Item key="4">2022</Menu.Item>
+                      <Menu.Item key="5">2023</Menu.Item>
                   </SubMenu>
-                  <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
+                  <SubMenu key="sub2" icon={<TeamOutlined />} title="Teams">
                       <Menu.Item key="6">Team 1</Menu.Item>
                       <Menu.Item key="8">Team 2</Menu.Item>
                   </SubMenu>
