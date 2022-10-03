@@ -12,7 +12,7 @@
 	<artifactId>F1drivers</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>F1drivers</name>
-	<description>F1 drivers API project for Spring Boot</description>
+	<description>Formula 1 drivers API project for Spring Boot</description>
 	<properties>
 		<java.version>15</java.version>
         <app.image.name>f1-drivers-app</app.image.name>
