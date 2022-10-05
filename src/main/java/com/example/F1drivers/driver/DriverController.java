@@ -1,22 +1,22 @@
 package com.example.F1drivers.driver;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController // Exposes the endpoints that the client can consume
 @RequestMapping(path = "api/f1/drivers") // Directs to specified url path
+@AllArgsConstructor
 public class DriverController {
+
+    private final DriverService driverService;
+
     // Create endpoint to return a list of drivers
     @GetMapping
     public List<Driver> getAllDrivers(){
-        List<Driver> drivers = Arrays.asList(
-                new Driver(1L, "Max Verstappen", "NED", Team.RED_BULL_RACING),
-                new Driver(2L, "Lewis Hamilton", "GBR", Team.MERCEDES_AMG_F1)
-        );
-        return drivers;
+        return driverService.getAllDrivers();
     }
 }
