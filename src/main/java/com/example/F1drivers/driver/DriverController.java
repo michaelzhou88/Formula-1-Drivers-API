@@ -1,9 +1,7 @@
 package com.example.F1drivers.driver;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,5 +16,15 @@ public class DriverController {
     @GetMapping
     public List<Driver> getAllDrivers(){
         return driverService.getAllDrivers();
+    }
+
+    @PostMapping
+    public void addDriver(@RequestBody Driver driver){
+        driverService.addDriver(driver);
+    }
+
+    @DeleteMapping(path = "{driverId")
+    public void deleteDriver(@PathVariable("driverId") Long driverId) {
+        driverService.deleteDriver(driverId);
     }
 }

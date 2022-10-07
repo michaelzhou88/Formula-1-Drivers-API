@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAllDrivers } from "./client";
+import { deleteDriver, getAllDrivers } from "./client";
 import {
     Layout,
     Menu,
@@ -11,23 +11,23 @@ import {
     Badge,
     Tag,
     Avatar,
-//    Radio, Popconfirm, Image
+    Radio,
+    Popconfirm
 } from 'antd';
-
 import {
     DesktopOutlined,
     PieChartOutlined,
-    FileOutlined,
     TeamOutlined,
     UserOutlined,
     LoadingOutlined,
     PlusOutlined
 } from '@ant-design/icons';
-
+import DriverDrawerForm from "./DriverDrawerForm";
 import './App.css';
+import {errorNotification, successNotification} from "./Notification";
 
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+const {Header, Content, Footer, Sider} = Layout;
+const {SubMenu} = Menu;
 
 const TheAvatar = ({name}) => {
     let trim = name.trim();
@@ -41,6 +41,21 @@ const TheAvatar = ({name}) => {
     return <Avatar>
         {`${name.charAt(0)}${name.charAt(name.length - 1)}`}
     </Avatar>
+}
+
+const removeDriver = (driverId, callback) => {
+     deleteDriver(driverId).then(() => {
+        successNotification("Driver deleted", `Driver with ID: ${driverId} was deleted`);
+        callback();
+    }).catch(err => {
+        err.response.json().then(res => {
+            console.log(res);
+            errorNotification(
+                "There was an issue",
+                `${res.message} [${res.status}] [${res.error}]`
+            )
+        });
+    })
 }
 
 const columns = fetchDrivers => [
@@ -70,6 +85,22 @@ const columns = fetchDrivers => [
         title: 'Team',
         dataIndex: 'team',
         key: 'team',
+    },
+    {
+         title: 'Action',
+         key: 'action',
+         render: (text, driver) =>
+             <Radio.Group>
+                 <Popconfirm
+                     placement='topRight'
+                     title={`Are you sure you want to delete ${driver.name}`}
+                     onConfirm={() => removeDriver(driver.id, fetchDrivers)}
+                     okText='Yes'
+                     cancelText='No'>
+                     <Radio.Button value="small">Delete</Radio.Button>
+                 </Popconfirm>
+                 <Radio.Button value="small">Edit</Radio.Button>
+             </Radio.Group>
     }
 ];
 
@@ -113,6 +144,11 @@ const renderDrivers = () => {
             </>
         }
         return <>
+            <DriverDrawerForm
+                showDrawer={showDrawer}
+                setShowDrawer={setShowDrawer}
+                fetchDrivers={fetchDrivers}
+            />
             <Table
                 dataSource={drivers}
                 columns={columns(fetchDrivers)}
@@ -142,10 +178,10 @@ const renderDrivers = () => {
               <div className="logo" />
               <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                   <Menu.Item key="1" icon={<PieChartOutlined />}>
-                      Option 1
+                      Formula 1
                   </Menu.Item>
                   <Menu.Item key="2" icon={<DesktopOutlined />}>
-                      Option 2
+                      Formula 2
                   </Menu.Item>
                   <SubMenu key="sub1" icon={<UserOutlined />} title="Drivers">
                       <Menu.Item key="3">2021</Menu.Item>
@@ -156,24 +192,23 @@ const renderDrivers = () => {
                       <Menu.Item key="6">Team 1</Menu.Item>
                       <Menu.Item key="8">Team 2</Menu.Item>
                   </SubMenu>
-                  <Menu.Item key="9" icon={<FileOutlined />}>
-                      Files
-                  </Menu.Item>
+
               </Menu>
           </Sider>
           <Layout className="site-layout">
               <Header className="site-layout-background" style={{ padding: 0 }} />
               <Content style={{ margin: '0 16px' }}>
                   <Breadcrumb style={{ margin: '16px 0' }}>
-                      <Breadcrumb.Item>User</Breadcrumb.Item>
-                      <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                      <Breadcrumb.Item>Season</Breadcrumb.Item>
+                      <Breadcrumb.Item>2022</Breadcrumb.Item>
                   </Breadcrumb>
                   <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                       {renderDrivers()}
 
                   </div>
               </Content>
-              <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+              <Footer style={{ textAlign: 'center' }}>By Michael Zhou
+              </Footer>
           </Layout>
       </Layout>
 }
