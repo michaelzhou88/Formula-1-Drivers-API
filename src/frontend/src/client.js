@@ -1,6 +1,6 @@
 import fetch from 'unfetch';
 
-// Method to check status code
+// Method to check status code and handle error on client side
 const checkStatus = response => {
     if (response.ok) {
         return response;
@@ -29,7 +29,7 @@ export const addNewDriver = driver =>
 
 
 // delete existing driver
-export const deleteDriver = driver =>
-    fetch(`api/f1/drivers/${driver.id}`, {
+export const deleteDriver = driverId =>
+    fetch(`api/f1/drivers/${driverId}`, {
             method: 'DELETE',
     }).then(checkStatus);

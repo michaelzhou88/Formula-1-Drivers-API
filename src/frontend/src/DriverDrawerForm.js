@@ -103,6 +103,15 @@ function DriverDrawerForm({showDrawer, setShowDrawer, fetchDrivers}) {
                         </Select>
                     </Form.Item>
                 </Col>
+                <Col span={12}>
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[{required: true, message: 'Please enter your email'}]}
+                    >
+                        <Input placeholder="Please enter your email"/>
+                    </Form.Item>
+                </Col>
             </Row>
             <Row>
                 <Col span={12}>

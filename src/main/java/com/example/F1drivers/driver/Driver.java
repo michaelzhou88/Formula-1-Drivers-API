@@ -3,6 +3,7 @@ package com.example.F1drivers.driver;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 //Driver Model
@@ -36,11 +37,15 @@ public class Driver {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Team team;
+    @Email
+    @Column(nullable = false, unique = true)
+    private String email;
 
-    public Driver(String name, String nationality, Team team) {
+    public Driver(String name, String nationality, Team team, String email) {
         this.name = name;
         this.nationality = nationality;
         this.team = team;
+        this.email = email;
     }
 }
 

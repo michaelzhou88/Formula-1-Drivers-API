@@ -120,9 +120,16 @@ function App() {
             setDrivers(data);
             setFetching(false);
         })
-        .catch(e => {
-            console.log(e);
-        });
+        .catch(err => {
+            console.log(err.response)
+            err.response.json().then(res => {
+            console.log(res);
+            errorNotification(
+                "There was an issue",
+                `${res.message} [${res.status}] [${res.error}]`
+            )
+           });
+        }).finally(() => setFetching(false))
 
   useEffect(() => {
     console.log("component is mounted");
@@ -140,7 +147,11 @@ const renderDrivers = () => {
                     type="primary" shape="round" icon={<PlusOutlined/>} size="small">
                     Add New Driver
                 </Button>
-                <Empty/>
+                <DriverDrawerForm
+                    showDrawer={showDrawer}
+                    setShowDrawer={setShowDrawer}
+                    fetchDrivers={fetchDrivers}
+                />
             </>
         }
         return <>
