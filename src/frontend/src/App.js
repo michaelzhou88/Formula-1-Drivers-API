@@ -152,6 +152,7 @@ const renderDrivers = () => {
                     setShowDrawer={setShowDrawer}
                     fetchDrivers={fetchDrivers}
                 />
+                <Empty/>
             </>
         }
         return <>

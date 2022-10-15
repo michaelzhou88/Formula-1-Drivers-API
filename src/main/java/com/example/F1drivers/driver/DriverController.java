@@ -3,6 +3,7 @@ package com.example.F1drivers.driver;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController // Exposes the endpoints that the client can consume
@@ -19,7 +20,7 @@ public class DriverController {
     }
 
     @PostMapping
-    public void addDriver(@RequestBody Driver driver){
+    public void addDriver(@Valid @RequestBody Driver driver){
         driverService.addDriver(driver);
     }
 
